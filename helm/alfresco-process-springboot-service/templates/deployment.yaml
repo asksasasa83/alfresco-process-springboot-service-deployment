@@ -42,7 +42,7 @@ spec:
               echo 'PostgreSQL OK ✓'
       {{- end }}
       {{- if .Values.extraInitContainers }}
-{{ tpl .Values.extraInitContainers . | indent 6 }}
+{{ tpl .Values.extraInitContainers . | indent 8 }}
       {{- end }}
     {{- end }}
       containers:
