@@ -47,7 +47,7 @@ spec:
     {{- end }}
       containers:
       {{- if .Values.extraContainers }}
-{{ tpl .Values.extraContainers . | indent 8 }}
+{{ tpl .Values.extraContainers . | indent 6 }}
     {{- end }}
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
