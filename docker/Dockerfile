@@ -1,6 +1,7 @@
 FROM alfresco/alfresco-base-java:11
 ENV PORT 8080
 EXPOSE 8080
-COPY target/*.jar /opt/app.jar
+ARG JAR_FILE=target/*.jar
 WORKDIR /opt
-ENTRYPOINT exec java $JAVA_OPTS -jar app.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT exec java -jar app.jar
