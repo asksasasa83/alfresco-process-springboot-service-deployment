@@ -1,7 +1,7 @@
 apiVersion: v1
 name: alfresco-process-springboot-service
 description: A Helm chart for a generic Alfresco Process/Activiti Spring Boot based microservice
-version: 2.1.0
+version: 2.2.0
 keywords:
   - alfresco
   - content
