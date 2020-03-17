@@ -21,9 +21,9 @@ spec:
         paths:
         {{- if .Values.ingress.subPaths }}
           {{- $serviceName := .Values.service.name -}}
+          {{- $externalPort := .Values.service.externalPort -}}
           {{- $contextPath := include "common.ingress-path" . -}}
           {{- $serviceNameTemplate := include "alfresco-java-service.fullname" . -}}
-          {{- if .Values.ingress.enabled }}
           {{- range .Values.ingress.subPaths }}
           - path: {{ $contextPath | default "" }}{{ . }}
             backend:
@@ -32,15 +32,15 @@ spec:
               {{- else }}
               serviceName: {{ $serviceNameTemplate }}
               {{- end}}
-              servicePort: http
+              servicePort: {{ $externalPort }}
           {{- end}}
         {{- else}}
         - path: {{ template "common.ingress-path" . }}
           backend:
-            {{- if $serviceName }}
-            serviceName: {{ $serviceName }}
+            {{- if .Values.service.name }}
+            serviceName: {{ .Values.service.name }}
             {{- else }}
-            serviceName: {{ $serviceNameTemplate }}
+            serviceName: {{ template "alfresco-java-service.fullname" . }}
             {{- end }}
             servicePort: {{ .Values.service.externalPort }}
         {{- end}}
@@ -52,5 +52,4 @@ spec:
     - {{ template "common.ingress-host" . }}
     {{- end }}
   {{- end }}
-{{- end }}
 {{- end }}
