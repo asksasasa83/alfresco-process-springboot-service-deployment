@@ -2,7 +2,7 @@ alfresco-process-springboot-service
 ===================================
 A Helm chart for a generic Alfresco Process/Activiti Spring Boot based microservice
 
-Current chart version is `2.2.0`
+Current chart version is `2.2.1`
 
 Source code can be found [here](https://www.alfresco.com)
 
