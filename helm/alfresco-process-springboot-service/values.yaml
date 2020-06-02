@@ -63,28 +63,26 @@ javaOpts:
   xmx: 2048m
   xms: 512m
   other: -XX:+UnlockExperimentalVMOptions -Dsun.zip.disableMemoryMapping=true -XX:+UseParallelGC -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90
+
 # only set this variable if a private registry secret is needed to pull the image
 #registryPullSecrets: private-registry-secret
+
 image:
   repository: activiti/example-runtime-bundle
-  tag: 7.0.0.SR1
   pullPolicy: IfNotPresent
-securityContext: |
-  # to specify docker daemon access
-  # privileged: true
+
 service:
   type: ClusterIP
   externalPort: 80
   internalPort: 8080
-  annotations:
-    fabric8.io/expose: "false"
+
 resources:
-  limits:
-    cpu: 2
-    memory: 2048Mi
   requests:
     cpu: 200m
     memory: 512Mi
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
 probePath: /actuator/health
 livenessProbe:
   initialDelaySeconds: 60
@@ -100,32 +98,55 @@ readinessProbe:
   failureThreshold: 3
 terminationGracePeriodSeconds: 20
 
-
 ingress:
-  ## Set to true to enable ingress record generation
+  # ingress.enabled -- set to true to enable ingress record generation
   enabled: false
 
   path: /rb-my-app
 
-  ## Set this to override global.gateway.host name
+  # ingress.hostName -- set this to override global.gateway.host name
   hostName:
 
-  ## Set this to true in order to enable TLS on the ingress record
+  # ingress.tls -- set this to true in order to enable TLS on the ingress record
   tls:
 
-  ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+  # ingress.tlsSecret -- If TLS is set to true, you must declare what secret will store the key/certificate for TLS
   tlsSecret:
 
-  ## Ingress annotations done as key:value pairs
+  # ingress.annotations -- Ingress annotations done as key:value pairs
   annotations: {}
 
-#only needed when using sck8s
-rbac:
-  create: true
-serviceAccount:
-  create: true
-
-## Add additional volumes and mounts
+# add additional volumes
 extraVolumes: |
+# add additional volume mounts
 extraVolumeMounts: |
+# add additional containers
 extraContainers: |
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+# runAsUser: 1000
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

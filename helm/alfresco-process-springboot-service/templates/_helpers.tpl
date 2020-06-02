@@ -30,3 +30,31 @@ Create chart name and version as used by the chart label.
 {{- define "alfresco-java-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Common labels
+*/}}
+{{- define "alfresco-java-service.labels" -}}
+chart: {{ include "alfresco-java-service.chart" . }}
+{{ include "alfresco-java-service.selectorLabels" . }}
+heritage: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "alfresco-java-service.selectorLabels" -}}
+app: {{ include "alfresco-java-service.fullname" . }}
+release: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "alfresco-java-service.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "alfresco-java-service.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}

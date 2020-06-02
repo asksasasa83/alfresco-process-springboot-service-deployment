@@ -1,4 +1,3 @@
-#configmap if using sck8s as not mounted (see also extraEnv)
 {{- if .Values.configMap }}
 apiVersion: v1
 kind: ConfigMap
@@ -8,6 +7,8 @@ metadata:
 {{- else }}
   name: {{ template "alfresco-java-service.fullname" . }}
 {{- end }}
+  labels:
+    {{- include "alfresco-java-service.labels" . | nindent 4 }}
 data:
   application.properties: |-
 {{- range $key, $value := .Values.configMap }}
