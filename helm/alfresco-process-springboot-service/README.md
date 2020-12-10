@@ -1,6 +1,6 @@
 # alfresco-process-springboot-service
 
-![Version: 7.1.0-M11](https://img.shields.io/badge/Version-7.1.0--M11-informational?style=flat-square)
+![Version: 7.1.0-M12](https://img.shields.io/badge/Version-7.1.0--M12-informational?style=flat-square)
 
 A Helm chart for a generic Alfresco Process/Activiti Spring Boot based microservice
 
@@ -51,7 +51,7 @@ Kubernetes: `>=1.15.0-0`
 | global.rabbitmq.host.value | string | `""` |  |
 | global.rabbitmq.password.value | string | `"guest"` |  |
 | global.rabbitmq.username.value | string | `"guest"` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"activiti/example-runtime-bundle"` |  |
 | ingress.annotations | object | `{}` | Ingress annotations done as key:value pairs |
 | ingress.enabled | bool | `false` | set to true to enable ingress record generation |

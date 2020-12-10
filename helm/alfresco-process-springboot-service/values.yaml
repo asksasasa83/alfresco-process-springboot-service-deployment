@@ -46,7 +46,7 @@ init:
   image:
     repository: alpine
     tag: 3.8
-    pullPolicy: Always
+    pullPolicy: IfNotPresent
 
 ## Allows the specification of additional environment variables
 extraEnv: |
